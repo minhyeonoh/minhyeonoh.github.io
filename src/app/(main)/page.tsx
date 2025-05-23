@@ -1,15 +1,11 @@
 
 import Link from 'next/link';
 import { 
-  IconArrowRight,
-  IconBrandLinkedin,
-  IconBrandGithub,
+  IconArrowUpRight,
   IconMail,
-  IconSchool,
 } from '@tabler/icons-react';
 import {
   Button,
-  Card,
   Group,
   Text,
   Stack,
@@ -17,22 +13,11 @@ import {
   TabsList,
   TabsTab,
   TabsPanel,
-  List,
-  ListItem
 } from '@mantine/core';
 import { Anchor } from '@/components/Anchor';
+import { Card } from '@/components/Card';
 import { H2 } from '@/components/Headings';
 import { Paragraph } from '@/components/Paragraph';
-
-import {
-  Accordion,
-  AccordionControl,
-  AccordionItem,
-  AccordionPanel,
-} from '@/components/Accordion';
-import { Carousel, CarouselSlide } from '@/components/Carousel';
-import { List as A, ListItem as B } from '@/components/List';
-import { Figure } from '@/components/Figure';
 
 export default function Home() {
   return (
@@ -45,21 +30,31 @@ export default function Home() {
           I'm a graduate student in the <Anchor href="https://cse.postech.ac.kr/">Department of Computer Science and Engineering</Anchor> at <Anchor href="https://postech.ac.kr/">POSTECH</Anchor>. Currently, I'm conducting research in the <Anchor href="https://ml.postech.ac.kr/">Machine Learning Laboratory</Anchor>, advised by Prof. <Anchor href="https://sites.google.com/view/jungseulok">Jungseul Ok</Anchor>.
         </Paragraph>
       </Group>
-      <List 
-        spacing="0.5ex" 
-        mt="0.5ex"
-        center
-      >
-        <ListItem icon={<IconMail />}>minhyeon.oh@postech.ac.kr</ListItem>
-        <ListItem icon={<IconSchool />}>awas</ListItem>
-        <ListItem icon={<IconBrandGithub />}>a</ListItem>
-        <ListItem icon={<IconBrandLinkedin />}>a</ListItem>
-      </List>
+      <Stack gap="5px">
+        <Group gap="1ex">
+          <IconMail size={17} />
+          <Text fw={600}>
+            minhyeon.oh@postech.ac.kr
+          </Text>
+        </Group>
+        <Group gap="1ex">
+          <IconArrowUpRight size={17} />
+          <Anchor c="var(--mantine-color-text)">GithHub</Anchor>
+        </Group>
+        <Group gap="1ex">
+          <IconArrowUpRight size={17} />
+          <Anchor c="var(--mantine-color-text)">Google Scholar</Anchor>
+        </Group>
+        <Group gap="1ex">
+          <IconArrowUpRight size={17} />
+          <Anchor c="var(--mantine-color-text)">LinkedIn</Anchor>
+        </Group>
+      </Stack>
       <H2 sub="My vision at a glance">
         Beyond powerful, towards personalized AI
       </H2>
       <Paragraph>
-        Our research vision centers on evolving AI beyond raw power towards truly human-centric systems—AI that is deeply tailored to individual needs, preferences, and contexts. This ambitious goal requires a cohesive synergy between intelligent AI capabilities, effective human interaction, and nuanced personalization.
+        My research vision centers on evolving AI beyond raw power towards truly <strong>human-centric systems</strong>—AI that is deeply tailored to individual needs, preferences, and contexts. Achieving this requires a seamless synergy among intuitive human interaction, intelligent AI capabilities, and effective personalization.
       </Paragraph>
       <Tabs
         color="dimmed"
@@ -85,7 +80,7 @@ export default function Home() {
           </TabsList>
           <Button color="dimmed" size="compact-sm" radius="md" variant="outline">
             <Group gap="1ex">
-              <IconArrowRight size={13} />
+              <IconArrowUpRight size={13} />
               <Link 
                 href="/research" 
                 style={{
@@ -105,7 +100,7 @@ export default function Home() {
                 Providing feedback with minimal efforts
               </Text>
               <Text size="sm">
-              We design interactions that empower users to effortlessly convey their preferences. Our focus is on capturing nuanced, multi-dimensional, and often implicit user needs and contexts through intuitive and low-effort feedback mechanisms.
+                We design interactions that empower users to effortlessly convey their preferences. Our focus is on capturing nuanced, multi-dimensional, and often implicit user needs and contexts through intuitive and low-effort feedback mechanisms.
               </Text>
             </Stack>
           </Card>

@@ -5,6 +5,7 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
+import { Anchor } from "@/components/Anchor";
 
 interface LinkProps {
   home?: any;
@@ -20,6 +21,19 @@ interface PubProps {
   links?: LinkProps
 }
 
+function LinkButton({ children, href, ...props }) {
+  return (
+    <Anchor 
+      component={Link}
+      href={href}
+      target="_blank"
+      {...props}
+    >
+      {children}
+    </Anchor >
+  );
+}
+
 export function Publication({ title, authors, venue, links } : PubProps) {
   return (
     <Stack gap="0px">
@@ -29,48 +43,24 @@ export function Publication({ title, authors, venue, links } : PubProps) {
         {links &&
           <Group gap="1ex">
             {links.home && 
-              <Link 
-                href={links.home} 
-                target="_blank"
-                style={{
-                  textDecoration: "none"
-                }}
-              >
-                <Text c="blue">Home</Text>
-              </Link>
+              <LinkButton href={links.home}>
+                Home
+              </LinkButton>
             }
             {links.paper && 
-              <Link 
-                href={links.paper} 
-                target="_blank"
-                style={{
-                  textDecoration: "none"
-                }}
-              >
-                <Text c="blue">Paper</Text>
-              </Link>
+              <LinkButton href={links.paper}>
+                Paper
+              </LinkButton>
             }
             {links.code && 
-              <Link 
-                href={links.code} 
-                target="_blank"
-                style={{
-                  textDecoration: "none"
-                }}
-              >
-                <Text c="blue">Code</Text>
-              </Link>
+              <LinkButton href={links.code}>
+                Code
+              </LinkButton>
             }
             {links.dataset && 
-              <Link 
-                href={links.dataset} 
-                target="_blank"
-                style={{
-                  textDecoration: "none"
-                }}
-              >
-                <Text c="blue">Dataset</Text>
-              </Link>
+              <LinkButton href={links.code}>
+                Data
+              </LinkButton>
             }
           </Group>
         }

@@ -16,12 +16,22 @@ import {
   Group,
   TableOfContents,
   Text,
-  UnstyledButton,
   Tooltip,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { ActionIcon } from '@/components/ActionIcon';
 import { ColorSchemeControl } from '@/components/ColorSchemeControl';
 import { NarrowContainer } from '@/components/NarrowContainer';
+
+function HeaderButton({ label, Icon }) {
+  return (
+    <Tooltip label={label} withArrow>
+      <ActionIcon>
+        <Icon />
+      </ActionIcon>
+    </Tooltip>
+  );
+}
 
 interface LinkProps {
   paper?: any;
@@ -67,25 +77,22 @@ export function Header({ links } : LinkProps) {
           </Group>
           <Group gap="md">
             {links.paper &&
-              <Tooltip label="Paper">
-                <UnstyledButton>
-                  <IconFileDescription style={{display: "block"}} />
-                </UnstyledButton>
-              </Tooltip>
+              <HeaderButton
+                label="Paper" 
+                Icon={IconFileDescription}
+              />
             }
             {links.code &&
-              <Tooltip label="Source code">
-                <UnstyledButton>
-                  <IconBrandGithub style={{display: "block"}} />
-                </UnstyledButton>
-              </Tooltip>
+              <HeaderButton 
+                label="Code" 
+                Icon={IconBrandGithub}
+              />
             }
             {links.dataset &&
-              <Tooltip label="Dataset">
-                <UnstyledButton>
-                  <IconDatabase style={{display: "block"}} />
-                </UnstyledButton>
-              </Tooltip>
+              <HeaderButton 
+                label="Data" 
+                Icon={IconDatabase}
+              />
             }
             <ColorSchemeControl />
           </Group>

@@ -3,7 +3,6 @@
 }
 
 :root[data-mantine-color-scheme='light'] {
-  --mantine-color-text: #414653;
 }
 
 .mantine-Tabs-tab {

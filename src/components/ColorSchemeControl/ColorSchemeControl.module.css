@@ -4,9 +4,9 @@
     display: none;
   }
 
-  @mixin light {
+  /* @mixin light {
     display: block;
-  }
+  } */
 }
 
 .light {
@@ -14,7 +14,7 @@
     display: none;
   }
 
-  @mixin dark {
+  /* @mixin dark {
     display: block;
-  }
+  } */
 }

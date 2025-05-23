@@ -1,13 +1,11 @@
 'use client';
 
 import Link from 'next/link'
-import { useState } from 'react';
 import {
   alpha,
   Box,
   Burger,
-  Center,
-  Container,
+  Button,
   Collapse,
   Divider,
   Group,
@@ -17,7 +15,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { ColorSchemeControl } from '@/components/ColorSchemeControl';
 import { NarrowContainer } from '@/components/NarrowContainer';
-import classes from './Header.module.css';
+import { Anchor } from '@/components/Anchor';
 
 const links = [
   { link: '/', label: 'About' },
@@ -27,52 +25,48 @@ const links = [
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
   const items = links.map((link) => (
-    <Link
+    <Button 
       key={link.label}
+      component={Link}
       href={link.link}
-      className={classes.link}
-      // data-active={active === link.link || undefined} // comment
-      onNavigate={() => {
-        setActive(link.link);
-      }}
+      radius="md"
+      size="compact-sm"
+      variant="subtle"
+      color="var(--mantine-color-text)"
     >
       {link.label}
-    </Link>
+    </Button>
   ));
   const collapsedItems = links.map((link) => (
-    <Link
+    <Anchor 
       key={link.label}
+      component={Link}
       href={link.link}
-      className={classes.hidden}
-      // data-active={active === link.link || undefined}
-      onNavigate={() => {
-        setActive(link.link);
-      }}
+      c="var(--mantine-color-text)"
     >
       {link.label}
-    </Link>
+    </Anchor>
   ));
   return (
-    <header>
-      <Box
-        w="100%"
-        style={{
-          position: "sticky", 
-          top: 0, 
-          backgroundColor: alpha("var(--mantine-color-body)", 0.8), 
-          backdropFilter: "blur(5px)",
-          zIndex: "100",
-        }}
-      >
+    <Box
+      w="100%"
+      style={{
+        position: "sticky", 
+        top: 0, 
+        backgroundColor: alpha("var(--mantine-color-body)", 0.8), 
+        backdropFilter: "blur(5px)",
+        zIndex: "100",
+      }}
+    >
+      <header>
         <NarrowContainer>
           <Group justify="space-between" py="md">
             <Text fw={600}>
               Minhyeon Oh
             </Text>
             <Group h="100%" gap="sm" visibleFrom="sm">
-              <Group gap="0ex">
+              <Group gap="xs">
                 {items}
               </Group>
               <ColorSchemeControl />
@@ -86,13 +80,17 @@ export function Header() {
           </Group>
           <Divider />
           <Collapse in={opened} hiddenFrom="sm">
-            <Stack gap="md" py="md">
+            <Stack 
+              gap="md" 
+              py="md"
+              align="flex-start"
+            >
               {collapsedItems}
             </Stack>
             <Divider />
           </Collapse>
         </NarrowContainer>
-      </Box>
-    </header>
+      </header>
+    </Box>
   );
 }

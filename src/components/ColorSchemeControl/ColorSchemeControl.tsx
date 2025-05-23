@@ -5,8 +5,8 @@ import {
   useMantineColorScheme, 
   useComputedColorScheme, 
   Tooltip, 
-  UnstyledButton 
 } from '@mantine/core';
+import { ActionIcon } from '@/components/ActionIcon';
 import classes from './ColorSchemeControl.module.css';
 
 export function ColorSchemeControl() {
@@ -16,10 +16,13 @@ export function ColorSchemeControl() {
 
   return (
     <Tooltip
-      label={`Read in ${isDarkMode ? 'light' : 'dark'} mode`}
+      label={`${isDarkMode ? 'Light' : 'Dark'} mode`}
+      withArrow
     >
-      <UnstyledButton
-        onClick={() => setColorScheme(isDarkMode ? 'light' : 'dark')}
+      <ActionIcon 
+        onClick={() => 
+          setColorScheme(isDarkMode ? 'light' : 'dark')
+        }
       >
         <IconSun className={
           cx(classes.icon, classes.light)}
@@ -27,7 +30,7 @@ export function ColorSchemeControl() {
         <IconMoon className={
           cx(classes.icon, classes.dark)}
         />
-      </UnstyledButton>
+      </ActionIcon>
     </Tooltip>
   );
 }

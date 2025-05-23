@@ -8,6 +8,7 @@ import {
 } from '@mantine/core';
 import { Anchor } from '@/components/Anchor';
 import { NarrowContainer } from '@/components/NarrowContainer';
+import classes from './Headings.module.css';
 
 function Address({ ids, domain }) {
   return (
@@ -104,7 +105,7 @@ export function H2({ children, sub, ...props }: H2Props) {
       <>
         <Space h="md" />
         <Stack gap="5px" mt="xl" mb="md">
-          <Text fw={600} c="dimmed">
+          <Text fw={600} className={classes.h2}>
             {sub}
           </Text>
           <Title order={2} {...props}>
