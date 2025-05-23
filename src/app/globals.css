@@ -2,8 +2,9 @@
   --mantine-color-body: var(--mantine-color-zinc-9);
 }
 
-/* :root[data-mantine-color-scheme='light'] {
-} */
+:root[data-mantine-color-scheme='light'] {
+  --mantine-color-text: #414653;
+}
 
 .mantine-Tabs-tab {
   @mixin hover {
