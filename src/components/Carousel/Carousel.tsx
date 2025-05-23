@@ -27,6 +27,7 @@ export function Carousel({ children, ...props }) {
       }}
       withIndicators 
       withControls 
+      slideGap="md"
       controlSize="1cm"
       controlsOffset="md"
       emblaOptions={{

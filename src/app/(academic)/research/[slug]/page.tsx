@@ -3,14 +3,15 @@ import {
   Image,
   Divider,
 } from '@mantine/core';
-import { ScrollToTop } from '@/components/ScrollToTop';
-import { Header } from '@/components/AcademicPost/Header';
-import { H1, H2, H3, H4, H5, H6 } from '@/components/Headings';
-import { Paragraph } from '@/components/Paragraph';
-import { Blockquote } from '@/components/Blockquote';
 import { Anchor } from '@/components/Anchor';
-import { NarrowContainer } from '@/components/NarrowContainer';
+import { Blockquote } from '@/components/Blockquote';
+import { Content } from '@/components/Content';
+import { H1, H2, H3, H4, H5, H6 } from '@/components/Headings';
+import { Header } from '@/components/AcademicPost/Header';
 import { List, ListItem } from '@/components/List';
+import { NarrowContainer } from '@/components/NarrowContainer';
+import { Paragraph } from '@/components/Paragraph';
+import { ScrollToTop } from '@/components/ScrollToTop';
 
 const overrideComponents = {
   h2: H2,
@@ -53,7 +54,7 @@ export default async function Post({ params }: Props) {
 
   const { slug } = await params
   const post = await import(`@/data/posts/${slug}.mdx`)
-  const Content = post.default
+  const MDXContent = post.default
   const metadata = post.metadata
 
   return (
@@ -65,11 +66,11 @@ export default async function Post({ params }: Props) {
       />
       <Header links={metadata.links} />
       <ScrollToTop />
-      <NarrowContainer>
+      <Content mt="md">
         <div id="mdx">
-          <Content components={overrideComponents} />
+          <MDXContent components={overrideComponents} />
         </div>
-      </NarrowContainer>
+      </Content>
     </>
   );
 }
@@ -77,6 +78,7 @@ export default async function Post({ params }: Props) {
 export function generateStaticParams() {
   // A list of params, which we will update shortly to use the file system.
   return [
+    { slug: 'comparison-based-active-preference-learning-for-multi-dimensional-personalization' },
   ]
 }
 

@@ -1,0 +1,290 @@
+import {
+  Container,
+  Image,
+  Space,
+  Text,
+} from '@mantine/core';
+import { RadarChart } from '@mantine/charts';
+
+import {
+  Accordion,
+  AccordionControl,
+  AccordionItem,
+  AccordionPanel,
+} from '@/components/Accordion';
+import { Card } from '@/components/Card'
+import { Carousel, CarouselSlide } from '@/components/Carousel';
+import { Figure } from '@/components/Figure';
+import { FullWidthBox } from '@/components/FullWidthBox'
+import { List, ListItem } from '@/components/List';
+import { Paragraph } from '@/components/Paragraph';
+
+export const metadata = {
+  title: 'Comparison-based Active Preference Learning for Multi-dimensional Personalization',
+  authors: [{
+    name: "Minhyeon Oh",
+    address: "minhyeon.oh@postech.ac.kr",
+    link: "https://minhyeonoh.github.io",
+    mark: "1"
+  }, {
+    name: "Seungjoon Lee",
+    address: "sjlee1218@postech.ac.kr",
+    link: "https://scholar.google.co.kr/citations?user=9665NJ8AAAAJ",
+    mark: "1"
+  }, {
+    name: "Jungseul Ok",
+    address: "jungseul@postech.ac.kr",
+    link: "https://sites.google.com/view/jungseulok",
+    mark: "1"
+  }],
+  affiliation: [{
+    mark: "1",
+    name: "Pohang University of Science and Technology, South Korea"
+  }],
+  links: {
+    paper: "https://arxiv.org/abs/2411.00524",
+    code: "",
+    dataset: "",
+  },
+}
+
+Large language models (LLMs) have shown remarkable success, but aligning them with human preferences remains a core challenge. As individuals have their own, multi-dimensional preferences, recent studies have explored multi-dimensional personalization, which aims to enable models to generate responses personalized to explicit preferences. However, human preferences are often implicit and thus difficult to articulate, limiting the direct application of this approach. To bridge this gap, we introduce a comparison-based active preference learning framework to capture implicit user preferences. Building on Bayesian inference, our work introduces a modified posterior update procedure to mitigate estimation bias and potential noise in comparisons. Also, inspired by generalized binary search, we employ an active query selection strategy to minimize the number of required comparisons by a user. Through theoretical analysis and experiments on language generation tasks, we demonstrate feedback efficiency and effectiveness of our framework in personalizing model responses.
+
+<Container maw="100%" p={0} mb="md">
+  <video
+    src="/ACL2025-Video-1.mp4"
+    width="100%"
+    style={{
+      borderRadius: "var(--mantine-spacing-md)"
+    }}
+    controls
+  />
+</Container>
+
+**Quick summary**
+
+<List>
+  <ListItem>Comparison-based preference learning</ListItem>
+  <ListItem>Robust to estimation bias and feedback noise</ListItem>
+  <ListItem>Efficient elicitation</ListItem>
+</List>
+
+## Multi-dimensional personalization
+
+Real-world user preferences are multi-dimensional, encompassing a range of distinct, often intertwined aspects such as tone, style, content focus, and safety. Given that users often prioritize these aspects differently, a single, generic model struggles to meet distinct individual needs. This underscores the critical role of multi-dimensional personalization in generating responses that precisely match individual user preferences.
+
+<Container maw="50ch" p={0}>
+  <figure style={{margin: "0px"}}>
+    <RadarChart
+      h={300}
+      data={[{
+        axis: 'Helpful',
+        'Response A': 120,
+        'Response B': 100,
+      }, {
+        axis: 'Harmless',
+        'Response A': 98,
+        'Response B': 90,
+      }, {
+        axis: 'Humor',
+        'Response A': 86,
+        'Response B': 70,
+      }, {
+        axis: 'Aspect 4',
+        'Response A': 99,
+        'Response B': 80,
+      }, {
+        axis: 'Aspect 5',
+        'Response A': 85,
+        'Response B': 120,
+      }]}
+      dataKey="axis"
+      series={[
+        { name: 'Response A', color: 'lime.4', opacity: 0.1 },
+        { name: 'Response B', color: 'cyan.4', opacity: 0.1 },
+      ]}
+      withPolarGrid
+      withPolarAngleAxis
+      withPolarRadiusAxis={false}
+      withDots
+      withLegend
+    />
+    <figcaption style={{textAlign: "center"}}>
+      <Space h="1ex" />
+      <Text size="sm">
+        {<>This illustrates 5-dimensional scores of two model responses for a prompt. Based on how a user prioritizes these 5 aspects, either response can be chosen.</>}
+      </Text>
+    </figcaption>
+  </figure>
+</Container>
+
+## Infer hidden user preferences through comparisons
+
+User preferences are often implicit, making them difficult for users to directly articulate. We address this by inferring underlying multi-dimensional preferences through comparative feedback, where users can reveal their true leanings by choosing between options (pairs of responses).
+
+<Container maw="60ch" p={0}>
+  <Figure
+    src="/ACL2025-Figure-2.png"
+    p="1ex"
+    bg="white"
+    captionAlign="center"
+    caption={<>
+      The agent selects a query (i.e., "which one do you prefer for this prompt, response 1 or response 2?") and then the user provides as feedback (i.e., "I prefer response #!"). This query-feedback cycle is repeated until the agent identifies the user's preferences.
+    </>}
+  />
+</Container>
+
+## Robust preference learning with bias and noise mitigation
+
+We found an issue of estimation bias in existing preference learning approaches, where estimation errors may not converge to zero. Recognizing this, and the pervasive issue of inherent noise in user feedback, we propose a modified posterior update. This design allows us to avoid potential biases in preference estimation and to control how skeptical we are towards provided user feedback, leading to more reliable and robust preference learning.
+
+<Container maw="50ch" p={0} mb="md">
+  <Figure
+    src="/ACL2025-Figure-1.png"
+    p="1ex"
+    bg="white"
+    captionAlign="center"
+    caption={<>
+      Impact of likelihood functions on preference estimation.
+    </>}
+  />
+</Container>
+
+After each feedback $y$ for a query $x$, we update current belief distribution $P(\mathbf{w})$ about the user's preferences as $P(\mathbf{w})\propto P(\mathbf{w}) L^{\beta,\gamma}(\mkern 1.0mu y\mkern 1.0mu\vert\mkern 2.0mu x;\mathbf{w})$, where
+
+$$
+L^{\beta,\gamma}(\mkern 1.0mu y\mkern 1.0mu\vert\mkern 2.0mu x;\mathbf{w}) = (1-2\gamma) \sigma(y\beta\langle\mathbf{w},\Delta\mathbf{r}(x)\rangle) + \gamma \ .
+$$
+
+See below for more illustrative explanation.
+
+<Accordion mt="lg">
+  <AccordionItem value='1'>
+    <AccordionControl>
+      <Text fw={600}>Estimation bias in preference learning (Unmodified)</Text>
+    </AccordionControl>
+    <AccordionPanel>
+      {<Paragraph mt={0}>
+        Traditional preference learning suffers from estimation bias, a skewed understanding of true user preferences. For instance, if a user prefers "70% helpfulness, 20% harmlessness, 10% humor" but selects a humor-focused response, traditional methods often incorrectly interpret this as the user <strong>most</strong> prioritizing humor. The cause of this bias lies in the smooth, curved shape of the standard, logistic likelihood function, which governs how we update our belief about true preferences. Consequently, each comparative feedback acts as a "directional force," tending to push the overall preference estimation towards one extreme in the preference space.
+      </Paragraph>}
+      <Container maw="100%" p={0}>
+        <Figure
+          src="/ACL2025-Figure-3/1.png"
+          p="1ex"
+          bg="white"
+          captionAlign="center"
+          caption={<>
+            <strong>Unmodified likelihood</strong> function and visualization of belief distribution before/after user feedback.
+          </>}
+        />
+      </Container>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem value='2'>
+    <AccordionControl>
+      <Text fw={600}>Use feedback as partitioning, but face noise vulnerability (Partially modified)</Text>
+    </AccordionControl>
+    <AccordionPanel>
+      {<Paragraph mt={0}>
+        To address this bias, one straightforward approach is removing the directional force by calibrating the likelihood function into a step-function. This treats feedback as "partitioning," simply disregarding portions of the preference space and successfully avoiding bias. However, this approach is vulnerable to noise in user feedback: accidental user choices can completely eliminate true preference regions by setting probabilities to zero. This irreversible "cutting off" prevents any recovery, even with subsequent correct feedback.
+      </Paragraph>}
+      <Container maw="100%" p={0}>
+        <Figure
+          src="/ACL2025-Figure-3/2.png"
+          p="1ex"
+          bg="white"
+          captionAlign="center"
+          caption={<>
+            <strong>Partially modified likelihood</strong> function and visualization of belief distribution before/after user feedback.
+          </>}
+        />
+      </Container>
+    </AccordionPanel>
+  </AccordionItem>
+  <AccordionItem value='3'>
+    <AccordionControl>
+      <Text fw={600}>Our robust preference learning (Modified)</Text>
+    </AccordionControl>
+    <AccordionPanel>
+      {<Paragraph mt={0}>
+        To overcome noise vulnerability while preventing bias, our method ensures all profiles retain non-zero probabilities. Instead of full elimination, probabilities are only reduced. This allows for recovery from erroneous feedback, as true preference signals can still restore probability.
+      </Paragraph>}
+      <Container maw="100%" p={0}>
+        <Figure
+          src="/ACL2025-Figure-3/3.png"
+          p="1ex"
+          bg="white"
+          captionAlign="center"
+          caption={<>
+            Our <strong>modified likelihood</strong> function and visualization of belief distribution before/after user feedback.
+          </>}
+        />
+      </Container>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+
+## Minimize user effort with efficient query selection
+
+To obtain maximum information while minimizing user interaction (comparative queries), we utilize an active query selection strategy inspired by the principle of <strong>generalized binary search</strong>. This dramatically reduces the number of required questions and maximizes learning efficiency.
+
+<FullWidthBox>
+  <Container maw="100ch" p={0}>
+    <Figure
+      src="/ACL2025-Figure-4.png"
+      bg="white"
+      captionAlign="center"
+      caption={<>
+        Visualization of modified posterior updates. This shows the belief distribution at the first five rounds. The true preference and the estimator are marked by the star and circle, respectively. Each chosen query is represented by a solid line. As shown, each query down-weights <strong>roughly half of the previous distribution</strong>.
+      </>}
+    />
+  </Container>
+</FullWidthBox>
+
+<Accordion mt="lg">
+  <AccordionItem value='1'>
+    <AccordionControl>
+      <Text fw={600}>More about efficient query selection</Text>
+    </AccordionControl>
+    <AccordionPanel>
+      At each query-feedback cycle, we select a query $x$ maximizing the following score:
+
+      $$
+      \alpha(x) \coloneqq \min_{y\in\{-1,1\}} \underbrace{\mathbb{E}_{\mathbf{w}\sim P} \left[ L^{\beta,\gamma}(\mkern 1.0mu y\mkern 1.0mu\vert\mkern 2.0mu x;\mathbf{w}) \right]}_{\text{Marginal likelihood}} \ .
+      $$
+
+      <Card>
+        <Text mb="sm" fw={600}>How can this achieve efficient preference learning?</Text>
+
+        As the marginal likelihoods for the two feedback, -1 and 1, sum to one, maximizing this score aims to find the query $x$, for which both marginal likelihoods are as close to $0.5$ as possible. Intuitively, before we get the feedback, our current belief $P$ suggests that there is roughly a 50% chance of getting either feedback for the query $x$. Thus, after receiving the feedback, we can down-weight 50% of possibility by a factor of $\gamma$ from our current belief, ensuring a rapid refinement of our belief. This strategy resembles binary search in that *it seeks to discard (down-weight) half of the possibilities at each step.*
+      </Card>
+    </AccordionPanel>
+  </AccordionItem>
+</Accordion>
+
+## Experiments
+
+### Robust and efficient preference learning
+
+<Carousel
+  slideSize={{ base: '100%', md: '90%' }}
+>
+  <CarouselSlide>
+    <Figure
+      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png"
+      captionAlign="center"
+      caption={<>
+        Conversational Assistant
+      </>}
+    />
+  </CarouselSlide>
+  <CarouselSlide>
+    <Figure
+      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-2.png"
+      captionAlign="center"
+      caption={<>
+        Article Summarization
+      </>}
+    />
+  </CarouselSlide>
+</Carousel>

@@ -1,8 +1,8 @@
 import { NarrowContainer } from "@/components/NarrowContainer";
 
-export function Content({ children }) {
+export function Content({ children, ...props }) {
   return (
-    <NarrowContainer mb={100}>
+    <NarrowContainer mb={100} {...props}>
       {children}
     </NarrowContainer>
   );

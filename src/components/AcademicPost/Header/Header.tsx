@@ -24,13 +24,13 @@ import { ColorSchemeControl } from '@/components/ColorSchemeControl';
 import { NarrowContainer } from '@/components/NarrowContainer';
 
 interface LinkProps {
-  home?: any;
   paper?: any;
   code?: any;
   dataset?: any;
 }
 
-export function Header({ home, paper, code, dataset } : LinkProps) {
+export function Header({ links } : LinkProps) {
+  console.log(links.paper);
   const [openedToC, { toggle: toggleToC }] = useDisclosure(false);
   return (
     <Box 
@@ -66,22 +66,21 @@ export function Header({ home, paper, code, dataset } : LinkProps) {
             </Button>
           </Group>
           <Group gap="md">
-            {/* {links.map(())} */}
-            {paper &&
+            {links.paper &&
               <Tooltip label="Paper">
                 <UnstyledButton>
                   <IconFileDescription style={{display: "block"}} />
                 </UnstyledButton>
               </Tooltip>
             }
-            {code &&
+            {links.code &&
               <Tooltip label="Source code">
                 <UnstyledButton>
                   <IconBrandGithub style={{display: "block"}} />
                 </UnstyledButton>
               </Tooltip>
             }
-            {dataset &&
+            {links.dataset &&
               <Tooltip label="Dataset">
                 <UnstyledButton>
                   <IconDatabase style={{display: "block"}} />
