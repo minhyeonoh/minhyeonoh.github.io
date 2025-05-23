@@ -33,21 +33,39 @@ export default function Home() {
       <Stack gap="5px">
         <Group gap="1ex">
           <IconMail size={17} />
-          <Text fw={600}>
+          <Text>
             minhyeon.oh@postech.ac.kr
           </Text>
         </Group>
         <Group gap="1ex">
           <IconArrowUpRight size={17} />
-          <Anchor c="var(--mantine-color-text)">GithHub</Anchor>
+          <Anchor
+            c="var(--mantine-color-text)"
+            href="https://github.com/minhyeonoh"
+            target="_blank"
+          >
+            GithHub
+          </Anchor>
         </Group>
         <Group gap="1ex">
           <IconArrowUpRight size={17} />
-          <Anchor c="var(--mantine-color-text)">Google Scholar</Anchor>
+          <Anchor
+            c="var(--mantine-color-text)"
+            href="https://scholar.google.com/citations?hl=ko&user=btj5roEAAAAJ"
+            target="_blank"
+          >
+            Google Scholar
+          </Anchor>
         </Group>
         <Group gap="1ex">
           <IconArrowUpRight size={17} />
-          <Anchor c="var(--mantine-color-text)">LinkedIn</Anchor>
+          <Anchor
+            c="var(--mantine-color-text)"
+            href="http://www.linkedin.com/in/minhyeon-oh-36b3282a2"
+            target="_blank"
+          >
+            LinkedIn
+          </Anchor>
         </Group>
       </Stack>
       <H2 sub="My vision at a glance">
@@ -94,7 +112,7 @@ export default function Home() {
           </Button>
         </Group>
         <TabsPanel value="human">
-          <Card shadow="sm" padding="sm" radius="md">
+          <Card padding="sm" radius="md">
             <Stack gap="1ex">
               <Text size="sm" fw={700}>
                 Providing feedback with minimal efforts
@@ -106,7 +124,7 @@ export default function Home() {
           </Card>
         </TabsPanel>
         <TabsPanel value="ai">
-          <Card shadow="sm" padding="sm" radius="md">
+          <Card padding="sm" radius="md">
             <Stack gap="1ex">
               <Text size="sm" fw={700}>
                 Understanding preferences from user feedback
@@ -118,7 +136,7 @@ export default function Home() {
           </Card>
         </TabsPanel>
         <TabsPanel value="personalization">
-          <Card shadow="sm" padding="sm" radius="md">
+          <Card padding="sm" radius="md">
             <Stack gap="1ex">
               <Text size="sm" fw={700}>
                 Adapting and delivering tailored experiences
