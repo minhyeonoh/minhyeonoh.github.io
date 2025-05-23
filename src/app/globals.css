@@ -1,0 +1,14 @@
+:root[data-mantine-color-scheme='dark'] {
+  --mantine-color-body: var(--mantine-color-zinc-9);
+}
+
+/* :root[data-mantine-color-scheme='light'] {
+} */
+
+.mantine-Tabs-tab {
+  @mixin hover {
+    @mixin dark {
+      background-color: var(--mantine-color-zinc-8);
+    }
+  }
+}

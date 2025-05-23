@@ -1,4 +1,6 @@
 import '@mantine/core/styles.css';
+import '@mantine/charts/styles.css';
+
 import "katex/dist/katex.min.css";
 import "./globals.css";
 
@@ -26,6 +28,21 @@ const theme = createTheme({
   fontFamilyMonospace: `Monaco, ${mono.style.fontFamily}, monospace`,
   headings: {
     fontFamily: `${heading.style.fontFamily}, ${DEFAULT_THEME.fontFamily}` 
+  },
+  colors: {
+    zinc: [
+      "#fafafa",
+      "#f4f4f5",
+      "#e4e4e7",
+      "#d4d4d8",
+      "#a1a1aa",
+      "#52525b",
+      "#3f3f46",
+      "#27272a",
+      "#18181b",
+      "#09090b",
+      "#71717A"
+    ],
   },
 });
 
