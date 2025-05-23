@@ -40,7 +40,6 @@ interface LinkProps {
 }
 
 export function Header({ links } : LinkProps) {
-  console.log(links.paper);
   const [openedToC, { toggle: toggleToC }] = useDisclosure(false);
   return (
     <Box 

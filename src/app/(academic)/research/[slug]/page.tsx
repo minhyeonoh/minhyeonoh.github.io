@@ -9,7 +9,6 @@ import { Content } from '@/components/Content';
 import { H1, H2, H3, H4, H5, H6 } from '@/components/Headings';
 import { Header } from '@/components/AcademicPost/Header';
 import { List, ListItem } from '@/components/List';
-import { NarrowContainer } from '@/components/NarrowContainer';
 import { Paragraph } from '@/components/Paragraph';
 import { ScrollToTop } from '@/components/ScrollToTop';
 
