@@ -25,21 +25,17 @@ export const metadata = {
     name: "Minhyeon Oh",
     address: "minhyeon.oh@postech.ac.kr",
     link: "https://minhyeonoh.github.io",
-    mark: "1"
   }, {
     name: "Seungjoon Lee",
     address: "sjlee1218@postech.ac.kr",
     link: "https://scholar.google.co.kr/citations?user=9665NJ8AAAAJ",
-    mark: "1"
   }, {
     name: "Jungseul Ok",
     address: "jungseul@postech.ac.kr",
     link: "https://sites.google.com/view/jungseulok",
-    mark: "1"
   }],
   affiliation: [{
-    mark: "1",
-    name: "Pohang University of Science and Technology, South Korea"
+    name: "Pohang University of Science and Technology"
   }],
   links: {
     paper: "https://arxiv.org/abs/2411.00524",
@@ -138,7 +134,13 @@ User preferences are often implicit, making them difficult for users to directly
 
 We found an issue of estimation bias in existing preference learning approaches, where estimation errors may not converge to zero. Recognizing this, and the pervasive issue of inherent noise in user feedback, we propose a modified posterior update. This design allows us to avoid potential biases in preference estimation and to control how skeptical we are towards provided user feedback, leading to more reliable and robust preference learning.
 
-<Container maw="50ch" p={0} mb="md">
+Upon receiving user feedback $y$ for a query $x$, we refine our understanding of the user's preferences, represented by the belief distribution $P(\mathbf{w})$. This update is governed by $P(\mathbf{w})\propto P(\mathbf{w}) L^{\beta,\gamma}(\mkern 1.0mu y\mkern 1.0mu\vert\mkern 2.0mu x;\mathbf{w})$, where the likelihood function is defined as
+
+$$
+L^{\beta,\gamma}(\mkern 1.0mu y\mkern 1.0mu\vert\mkern 2.0mu x;\mathbf{w}) = (1-2\gamma) \sigma(y\beta\langle\mathbf{w},\Delta\mathbf{r}(x)\rangle) + \gamma \ .
+$$
+
+<Container maw="50ch" p={0} mb="md" mt="lg">
   <Figure
     src="/ACL2025-Figure-1.png"
     p="1ex"
@@ -150,22 +152,16 @@ We found an issue of estimation bias in existing preference learning approaches,
   />
 </Container>
 
-After each feedback $y$ for a query $x$, we update current belief distribution $P(\mathbf{w})$ about the user's preferences as $P(\mathbf{w})\propto P(\mathbf{w}) L^{\beta,\gamma}(\mkern 1.0mu y\mkern 1.0mu\vert\mkern 2.0mu x;\mathbf{w})$, where
-
-$$
-L^{\beta,\gamma}(\mkern 1.0mu y\mkern 1.0mu\vert\mkern 2.0mu x;\mathbf{w}) = (1-2\gamma) \sigma(y\beta\langle\mathbf{w},\Delta\mathbf{r}(x)\rangle) + \gamma \ .
-$$
-
 See below for more illustrative explanation.
 
 <Accordion mt="lg">
   <AccordionItem value='1'>
     <AccordionControl>
-      <Text fw={600}>Estimation bias in preference learning (Unmodified)</Text>
+      <Text fw={700}>Estimation bias in preference learning (unmodified)</Text>
     </AccordionControl>
     <AccordionPanel>
       {<Paragraph mt={0}>
-        Traditional preference learning suffers from estimation bias, a skewed understanding of true user preferences. For instance, if a user prefers "70% helpfulness, 20% harmlessness, 10% humor" but selects a humor-focused response, traditional methods often incorrectly interpret this as the user <strong>most</strong> prioritizing humor. The cause of this bias lies in the smooth, curved shape of the standard, logistic likelihood function, which governs how we update our belief about true preferences. Consequently, each comparative feedback acts as a "directional force," tending to push the overall preference estimation towards one extreme in the preference space.
+        Traditional preference learning suffers from estimation bias, a skewed understanding of true user preferences. For instance, if a user prefers "20% helpfulness, 30% harmlessness, 40% humor" and selects a humor-focused response, traditional methods often incorrectly interpret this as the user <strong>most</strong> prioritizing humor. The cause of this bias lies in the smooth, curved shape of the standard, logistic likelihood function. Consequently, each comparative feedback acts as a "directional force," tending to push the overall preference estimation towards one extreme in the preference space.
       </Paragraph>}
       <Container maw="100%" p={0}>
         <Figure
@@ -182,11 +178,11 @@ See below for more illustrative explanation.
   </AccordionItem>
   <AccordionItem value='2'>
     <AccordionControl>
-      <Text fw={600}>Use feedback as partitioning, but face noise vulnerability (Partially modified)</Text>
+      <Text fw={700}>Use feedback as partitioning, but face noise vulnerability (partially modified)</Text>
     </AccordionControl>
     <AccordionPanel>
       {<Paragraph mt={0}>
-        To address this bias, one straightforward approach is removing the directional force by calibrating the likelihood function into a step-function. This treats feedback as "partitioning," simply disregarding portions of the preference space and successfully avoiding bias. However, this approach is vulnerable to noise in user feedback: accidental user choices can completely eliminate true preference regions by setting probabilities to zero. This irreversible "cutting off" prevents any recovery, even with subsequent correct feedback.
+        One straightforward approach for for addressing this bias is removing the directional force by calibrating the likelihood function into a <strong>step-function</strong>. This treats feedback as "partitioning," simply disregarding portions of the preference space and successfully avoiding bias. However, this approach is vulnerable to noise in user feedback: accidental user choices can completely eliminate true preference regions by setting probabilities to <strong>zero</strong>. This irreversible "cutting off" prevents any recovery, even with subsequent correct feedback onwards.
       </Paragraph>}
       <Container maw="100%" p={0}>
         <Figure
@@ -203,11 +199,11 @@ See below for more illustrative explanation.
   </AccordionItem>
   <AccordionItem value='3'>
     <AccordionControl>
-      <Text fw={600}>Our robust preference learning (Modified)</Text>
+      <Text fw={700}>Our robust preference learning (modified)</Text>
     </AccordionControl>
     <AccordionPanel>
       {<Paragraph mt={0}>
-        To overcome noise vulnerability while preventing bias, our method ensures all profiles retain non-zero probabilities. Instead of full elimination, probabilities are only reduced. This allows for recovery from erroneous feedback, as true preference signals can still restore probability.
+        To overcome noise vulnerability while preventing bias, our method ensures all profiles retain non-zero probabilities. Instead of full elimination, probabilities are reduced (down-weighted). This allows for recovery from erroneous feedback, as true preference signals can still restore probability.
       </Paragraph>}
       <Container maw="100%" p={0}>
         <Figure
@@ -244,7 +240,7 @@ To obtain maximum information while minimizing user interaction (comparative que
 <Accordion mt="lg">
   <AccordionItem value='1'>
     <AccordionControl>
-      <Text fw={600}>More about efficient query selection</Text>
+      <Text fw={700}>More about efficient query selection</Text>
     </AccordionControl>
     <AccordionPanel>
       At each query-feedback cycle, we select a query $x$ maximizing the following score:
@@ -254,7 +250,7 @@ To obtain maximum information while minimizing user interaction (comparative que
       $$
 
       <Card>
-        <Text mb="sm" fw={600}>How can this achieve efficient preference learning?</Text>
+        <Text mb="sm" fw={700}>How can this achieve efficient preference learning?</Text>
 
         As the marginal likelihoods for the two feedback, -1 and 1, sum to one, maximizing this score aims to find the query $x$, for which both marginal likelihoods are as close to $0.5$ as possible. Intuitively, before we get the feedback, our current belief $P$ suggests that there is roughly a 50% chance of getting either feedback for the query $x$. Thus, after receiving the feedback, we can down-weight 50% of possibility by a factor of $\gamma$ from our current belief, ensuring a rapid refinement of our belief. This strategy resembles binary search in that *it seeks to discard (down-weight) half of the possibilities at each step.*
       </Card>
