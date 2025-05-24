@@ -1,5 +1,6 @@
 
 import {
+  Box,
   Group,
   Space,
   Stack,
@@ -51,16 +52,25 @@ function domainGroups({ addresses }) {
 
 export function H1({ title, authors, affiliation }) {
   const tmp = authors.map((author, index) => 
-    <Group key={index} gap="0ex">
-      <Anchor href={author.link} target="_blank">
+    <span key={index}>
+      <Anchor href={author.link} target="_blank" lh={1}>
         {author.name}
       </Anchor>
-      <a>
-        <sup>{author.mark}</sup>
-        {index < authors.length - 1 && ','}
-      </a>
-    </Group>
+      {author.mark && <sup>{author.mark}</sup>}
+      {index < authors.length - 1 && ', '}
+    </span>
   );
+  // const tmp = authors.map((author, index) => 
+  //   <a key={index}>
+  //     <Anchor href={author.link} target="_blank" lh={1}>
+  //       {author.name}
+  //     </Anchor>
+  //     {/* <a> */}
+  //       <sup>{author.mark}</sup>
+  //       {index < authors.length - 1 && ', '}
+  //     {/* </a> */}
+  //   </a>
+  // );
   const groups = domainGroups({ 
     addresses: authors.map((author) =>
       author.address
@@ -68,19 +78,21 @@ export function H1({ title, authors, affiliation }) {
   });
   return (
     <NarrowContainer>
-      <Stack mt="xl" gap="sm" align="center">
-        <Title order={1} style={{textAlign: "center"}}>
+      <Stack mt="xl" gap="sm" align="stretch">
+        <Title order={1} ta={{ base: "start", sm: "center" }}>
           {title}
         </Title>
-        <Group justify="center" gap="1ex">
+        <Box ta={{ base: "start", sm: "center" }}>
           {tmp}
-        </Group>
-        <Stack align="center" gap="0.5ex">
+        </Box>
+        <Stack align="stretch" gap="0ex">
           {affiliation.map((x, index) =>
-            <a key={index}><sup>{x.mark}</sup>{x.name}</a>
+            <Box key={index} ta={{ base: "start", sm: "center" }}>
+              <a>{x.mark && <sup>{x.mark}</sup>}{x.name}</a>
+            </Box>
           )}
         </Stack>
-        <Stack align="center" gap="0.5ex">
+        {/* <Stack align="center" gap="0.5ex">
           {groups.map((group, index) =>
             <Address 
               key={index}
@@ -88,7 +100,7 @@ export function H1({ title, authors, affiliation }) {
               domain={group.domain}
             />
           )}
-        </Stack>
+        </Stack> */}
       </Stack>
     </NarrowContainer>
   );
@@ -105,7 +117,7 @@ export function H2({ children, sub, ...props }: H2Props) {
       <>
         <Space h="md" />
         <Stack gap="5px" mt="xl" mb="md">
-          <Text fw={600} className={classes.h2}>
+          <Text fw={600} className={classes.h2sub}>
             {sub}
           </Text>
           <Title order={2} {...props}>

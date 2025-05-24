@@ -24,6 +24,7 @@ const heading = Figtree({ subsets: ['latin'] });
 const mono = Roboto_Mono({ subsets: ['latin'] });
 
 const theme = createTheme({
+  scale: 0.95,
   fontFamily: `${body.style.fontFamily}, ${DEFAULT_THEME.fontFamily}`,
   fontFamilyMonospace: `Monaco, ${mono.style.fontFamily}, monospace`,
   headings: {
