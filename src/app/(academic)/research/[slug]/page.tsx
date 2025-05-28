@@ -26,7 +26,7 @@ const overrideComponents = {
   ),
   blockquote: Blockquote,
   a: ({ children, href, title }) => (
-    <Anchor href={href} title={title} target="_blank">{children}</Anchor>
+    <Anchor href={href} title={title}>{children}</Anchor>
   ),
   em: ({ children }) => (
     <em>{children}</em>

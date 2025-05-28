@@ -53,7 +53,7 @@ function domainGroups({ addresses }) {
 export function H1({ title, authors, affiliation }) {
   const tmp = authors.map((author, index) => 
     <span key={index}>
-      <Anchor href={author.link} target="_blank" lh={1}>
+      <Anchor href={author.link} lh={1}>
         {author.name}
       </Anchor>
       {author.mark && <sup>{author.mark}</sup>}

@@ -26,7 +26,6 @@ function LinkButton({ children, href, ...props }) {
     <Anchor 
       component={Link}
       href={href}
-      target="_blank"
       {...props}
     >
       {children}
