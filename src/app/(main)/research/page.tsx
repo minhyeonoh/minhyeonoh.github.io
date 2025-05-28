@@ -21,7 +21,7 @@ export default function Page() {
       <Publication 
         title="Comparison-based Active Preference Learning for Multi-dimensional Personalization"
         authors={<><u>Minhyeon Oh</u>, Seungjoon Lee, Jungseul Ok</>}
-        venue="ACL 2025 Main"
+        venue="ACL 2025 Main (Long)"
         links={{
           home: "/research/comparison-based-active-preference-learning-for-multi-dimensional-personalization",
           paper: "https://arxiv.org/abs/2411.00524",

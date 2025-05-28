@@ -50,7 +50,7 @@ function domainGroups({ addresses }) {
   return orderedGroups;
 }
 
-export function H1({ title, authors, affiliation }) {
+export function H1({ title, authors, affiliation, venue }) {
   const tmp = authors.map((author, index) => 
     <span key={index}>
       <Anchor href={author.link} lh={1}>
@@ -79,6 +79,11 @@ export function H1({ title, authors, affiliation }) {
   return (
     <NarrowContainer>
       <Stack mt="xl" gap="sm" align="stretch">
+        <Box ta={{ base: "start", sm: "center" }}>
+          <Text>
+            {venue}
+          </Text>
+        </Box>
         <Title order={1} ta={{ base: "start", sm: "center" }}>
           {title}
         </Title>

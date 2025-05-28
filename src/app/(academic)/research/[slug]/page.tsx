@@ -62,6 +62,7 @@ export default async function Post({ params }: Props) {
         title={metadata.title}
         authors={metadata.authors}
         affiliation={metadata.affiliation}
+        venue={metadata.venue}
       />
       <Header links={metadata.links} />
       <ScrollToTop />
