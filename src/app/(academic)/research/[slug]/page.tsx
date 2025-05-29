@@ -78,7 +78,7 @@ export default async function Post({ params }: Props) {
 export function generateStaticParams() {
   // A list of params, which we will update shortly to use the file system.
   return [
-    { slug: 'comparison-based-active-preference-learning-for-multi-dimensional-personalization' },
+    { slug: 'MAPLe' },
   ]
 }
 

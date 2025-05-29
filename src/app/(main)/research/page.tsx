@@ -23,7 +23,7 @@ export default function Page() {
         authors={<><u>Minhyeon Oh</u>, Seungjoon Lee, Jungseul Ok</>}
         venue="ACL 2025 Main (Long)"
         links={{
-          home: "/research/comparison-based-active-preference-learning-for-multi-dimensional-personalization",
+          home: "/research/MAPLe",
           paper: "https://arxiv.org/abs/2411.00524",
           code: "empty"
         }}
