@@ -263,24 +263,51 @@ To obtain maximum information while minimizing user interaction (comparative que
 
 ### Robust and efficient preference learning
 
+Unmodified updates converge not at all or slowly. In contrast, our modified update ensures convergence. When combined with our volume-halving queries, we achieve the fastest and most stable convergence.
+
 <Carousel
   slideSize={{ base: '100%', md: '90%' }}
 >
   <CarouselSlide>
     <Figure
-      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-1.png"
+      src="/assets/research/MAPLe/assistant-5.png"
       captionAlign="center"
       caption={<>
-        Conversational Assistant
+        More than about 10% of the feedback are noise.
       </>}
     />
   </CarouselSlide>
   <CarouselSlide>
     <Figure
-      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-2.png"
+      src="/assets/research/MAPLe/summary-5.png"
       captionAlign="center"
       caption={<>
-        Article Summarization
+        More than about 10% of the feedback are noise.
+      </>}
+    />
+  </CarouselSlide>
+</Carousel>
+
+Under ideal conditions—no noise in the feedback—we can see the same resultant tendency, but with even more pronounced performance gap.
+
+<Carousel
+  slideSize={{ base: '100%', md: '90%' }}
+>
+  <CarouselSlide>
+    <Figure
+      src="/assets/research/MAPLe/assistant-ing.png"
+      captionAlign="center"
+      caption={<>
+        More than about 10% of the feedback are noise.
+      </>}
+    />
+  </CarouselSlide>
+  <CarouselSlide>
+    <Figure
+      src="/assets/research/MAPLe/summary-inf.png"
+      captionAlign="center"
+      caption={<>
+        More than about 10% of the feedback are noise.
       </>}
     />
   </CarouselSlide>
